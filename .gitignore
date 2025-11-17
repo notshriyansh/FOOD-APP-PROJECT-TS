@@ -9,7 +9,7 @@ dist/
 .cache/
 .parcel-cache
 
-# TypeScript
+# TypeScript"
 *.tsbuildinfo
 
 # Environment files
