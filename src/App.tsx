@@ -3,8 +3,6 @@ import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
 
-const resList: any[] = [];
-
 const AppLayout: React.FC = () => {
   return (
     <div className="app">
@@ -14,8 +12,8 @@ const AppLayout: React.FC = () => {
   );
 };
 
-const rootElement = document.getElementById("root") as HTMLElement;
-
-const root = ReactDOM.createRoot(rootElement);
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 
 root.render(<AppLayout />);
