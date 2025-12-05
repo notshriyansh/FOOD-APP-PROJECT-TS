@@ -7,7 +7,7 @@ yarn-error.log*
 # Parcel build output
 dist/
 .cache/
-.parcel-cache
+.parcel-cache/
 
 # TypeScript"
 *.tsbuildinfo
