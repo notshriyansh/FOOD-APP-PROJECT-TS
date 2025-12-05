@@ -31,3 +31,31 @@ export interface ApiResponse {
     }[];
   };
 }
+
+export interface ItemInfo {
+  id: string;
+  name: string;
+  price?: number;
+  defaultPrice?: number;
+}
+
+export interface ItemCard {
+  card: {
+    info: ItemInfo;
+  };
+}
+
+export interface CategoryCard {
+  card?: {
+    card?: {
+      title?: string;
+      itemCard?: ItemCard[];
+    };
+  };
+}
+
+export interface RestaurantMenuResponse {
+  data?: {
+    cards?: any[];
+  };
+}
