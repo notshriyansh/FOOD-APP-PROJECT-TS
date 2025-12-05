@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 
-const ResaurantMenu = () => {
+const RestaurantMenu = () => {
   const { resId } = useParams<{ resId: string }>();
   const menuData = useRestaurantMenu(resId);
 
@@ -11,7 +11,7 @@ const ResaurantMenu = () => {
   const restaurantName = menuData?.data?.cards?.[0]?.card?.card?.text;
 
   const categories =
-    menuData?.data?.cards?.[4]?.groupedCard?.cardGroupMAp?.REGULAR?.cards || [];
+    menuData?.data?.cards?.[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
 
   return (
     <div className="menu">
@@ -43,4 +43,4 @@ const ResaurantMenu = () => {
   );
 };
 
-export default ResaurantMenu;
+export default RestaurantMenu;
