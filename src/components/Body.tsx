@@ -33,6 +33,13 @@ const Body = () => {
     setFilteredRestaurants(restaurants.map((r: any) => r.info));
   };
 
+  const handleSearch = () => {
+    const filtered = listOfRestaurants.filter((res) =>
+      res.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setFilteredRestaurants(filtered);
+  };
+
   const onlineStatus = useOnlineStatus();
   if (!onlineStatus)
     return (
@@ -53,14 +60,12 @@ const Body = () => {
             className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-primary transition"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleSearch();
+            }}
           />
           <button
-            onClick={() => {
-              const filtered = listOfRestaurants.filter((res) =>
-                res.name.toLowerCase().includes(searchText.toLowerCase())
-              );
-              setFilteredRestaurants(filtered);
-            }}
+            onClick={handleSearch}
             className="bg-brand-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
           >
             Search
@@ -80,7 +85,7 @@ const Body = () => {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {filteredRestaurants.map((restaurant) => (
           <Link to={"/restaurants/" + restaurant.id} key={restaurant.id}>
             <RestaurantCard resData={restaurant} />
