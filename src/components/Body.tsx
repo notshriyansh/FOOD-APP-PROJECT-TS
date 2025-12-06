@@ -36,7 +36,7 @@ const Body = () => {
   const onlineStatus = useOnlineStatus();
   if (!onlineStatus)
     return (
-      <h1 className="text-center text-xl py-20">
+      <h1 className="text-center mt-20 text-red-500 font-bold">
         Looks like you're offline! Please check your internet connection.
       </h1>
     );
@@ -44,37 +44,36 @@ const Body = () => {
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
-    <div className="space-y-8">
-      <div className="flex flex-col sm:flex-row items-center gap-4">
-        <div className="flex w-full sm:w-1/2 gap-2">
+    <div className="px-4 md:px-8 mt-6">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+        <div className="flex gap-2">
           <input
             type="text"
-            className="flex-1 border rounded-lg px-4 py-2 shadow-sm focus:ring focus:ring-orange-300 outline-none"
-            placeholder="Search Restaurants..."
+            placeholder="Search restaurants..."
+            className="px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-primary transition"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
           />
-
           <button
-            className="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition"
             onClick={() => {
               const filtered = listOfRestaurants.filter((res) =>
                 res.name.toLowerCase().includes(searchText.toLowerCase())
               );
               setFilteredRestaurants(filtered);
             }}
+            className="bg-brand-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
           >
             Search
           </button>
         </div>
 
         <button
-          className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition"
+          className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
           onClick={() => {
             const filteredList = listOfRestaurants.filter(
               (res) => res.avgRating > 4
             );
-            setListOfRestaurants(filteredList);
+            setFilteredRestaurants(filteredList);
           }}
         >
           Top Rated Restaurants
@@ -83,11 +82,7 @@ const Body = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {filteredRestaurants.map((restaurant) => (
-          <Link
-            to={"/restaurants/" + restaurant.id}
-            key={restaurant.id}
-            className="block"
-          >
+          <Link to={"/restaurants/" + restaurant.id} key={restaurant.id}>
             <RestaurantCard resData={restaurant} />
           </Link>
         ))}
