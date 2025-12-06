@@ -9,7 +9,6 @@ module.exports = {
       fontFamily: {
         sans: ["system-ui", "sans-serif"],
       },
-      // ✅ Add custom shimmer animation here
       keyframes: {
         shimmer: {
           "0%": { transform: "translateX(-100%)" },

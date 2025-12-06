@@ -10,7 +10,7 @@ const RestaurantCard = ({ resData }: RestaurantCardProps) => {
     resData;
 
   return (
-    <div className="bg-white rounded-2xl shadow-md overflow-hidden hover:scale-105 transition-transform duration-300 min-h-[360px] flex flex-col">
+    <div className="bg-white rounded-2xl shadow-md overflow-hidden hover:scale-105 transition-transform duration-300 h-full flex flex-col">
       <img
         className="w-full h-40 object-cover"
         alt={name}
@@ -24,7 +24,7 @@ const RestaurantCard = ({ resData }: RestaurantCardProps) => {
         <h3 className="text-lg font-bold text-gray-800">{name}</h3>
         <p className="text-gray-500 text-sm">{cuisines?.join(", ")}</p>
         <div className="flex justify-between items-center mt-2 text-sm text-gray-600">
-          <span>{avgRating} ⭐</span>
+          <span>{avgRating} 🌟</span>
           <span>{costForTwo}</span>
           <span>{sla?.deliveryTime} min</span>
         </div>
