@@ -14,31 +14,43 @@ const RestaurantMenu = () => {
     menuData?.data?.cards?.[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
 
   return (
-    <div className="menu">
-      <h1>{restaurantName}</h1>
+    <div className="max-w-3xl mx-auto py-10">
+      <h1 className="text-4xl font-bold mb-8 text-gray-800">
+        {restaurantName}
+      </h1>
 
-      {categories.map((category: any, index: number) => {
-        const card = category.card?.card;
+      <div className="space-y-8">
+        {categories.map((category: any, index: number) => {
+          const card = category.card?.card;
 
-        if (card?.itemCards) {
-          return (
-            <div key={index}>
-              <h2>{card.title}</h2>
-              <ul>
-                {card.itemCards.map((item: any) => (
-                  <li key={item.card.info.id}>
-                    {item.card.info.name} - ₹
-                    {item.card.info.price / 100 ||
-                      item.card.info.defaultPrice / 100}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          );
-        }
+          if (card?.itemCards) {
+            return (
+              <div
+                key={index}
+                className="bg-white p-6 shadow rounded-xl space-y-4"
+              >
+                <h2 className="text-2xl font-semibold text-gray-900">
+                  {card.title}
+                </h2>
+                <ul className="space-y-2">
+                  {card.itemCards.map((item: any) => (
+                    <li
+                      key={item.card.info.id}
+                      className="flex justify-between text-lg text-gray-700 border-b pb-2"
+                    >
+                      {item.card.info.name} - ₹
+                      {item.card.info.price / 100 ||
+                        item.card.info.defaultPrice / 100}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          }
 
-        return null;
-      })}
+          return null;
+        })}
+      </div>
     </div>
   );
 };

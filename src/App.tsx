@@ -10,9 +10,11 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
 const AppLayout: React.FC = () => {
   return (
-    <div className="app">
+    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans">
       <Header />
-      <Outlet />
+      <main className="max-w-7xl mx-auto px-4 py-6">
+        <Outlet />
+      </main>
     </div>
   );
 };

@@ -10,9 +10,9 @@ const RestaurantCard = ({ resData }: RestaurantCardProps) => {
     resData;
 
   return (
-    <div className="res-card">
+    <div className="bg-white rounded-xl shadow hover:shadow-lg transition p-4 cursor-pointer">
       <img
-        className="res-logo"
+        className="rounded-xl h-40 w-full object-cover mb-3"
         alt={name}
         src={
           cloudinaryImageId
@@ -20,11 +20,13 @@ const RestaurantCard = ({ resData }: RestaurantCardProps) => {
             : "https://via.placeholder.com/200?text=No+Image"
         }
       />
-      <h3>{name}</h3>
-      <h4>{cuisines?.join(", ")}</h4>
-      <h4>{avgRating} stars</h4>
-      <h4>{costForTwo}</h4>
-      <h4>{sla?.deliveryTime} minutes</h4>
+      <h3 className="text-lg font-semibold text-gray-900">{name}</h3>
+      <p className="text-sm text-gray-500">{cuisines?.join(", ")}</p>
+      <div className="text-sm text-gray-500">
+        <span>{avgRating} stars</span>
+        <span>{costForTwo}</span>
+        <span>{sla?.deliveryTime} minutes</span>
+      </div>
     </div>
   );
 };

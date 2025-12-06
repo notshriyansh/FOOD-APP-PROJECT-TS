@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@import "tailwindcss/utilities";
+
+:root {
+  --radius: 10px;
+}
+
+.btn {
+  @apply bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition;
+}
+
+.card {
+  @apply bg-white rounded-xl shadow-md hover:shadow-lg transition hover:-translate-y-1 overflow-hidden;
+}
+
+.input {
+  @apply border border-gray-300 rounded-lg px-3 py-2
+         focus:ring-2 focus:ring-red-400 outline-none transition w-full;
+}
+
+.shimmer {
+  @apply animate-pulse bg-gray-200 rounded-xl;
+}
