@@ -21,7 +21,7 @@ const Header: React.FC = () => {
         <ul className="flex items-center gap-8 text-gray-700 font-medium">
           <li className="flex items-center gap-1 text-sm bg-gray-100 px-3 py-1 rounded-full">
             <span className="font-semibold">Status:</span>
-            {onlineStatus ? "🟢 Online" : "🔴 Offline"}
+            {onlineStatus ? "🟢" : "🔴"}
           </li>
 
           {["Home", "Contact", "About"].map((item, idx) => (
