@@ -1,17 +1,25 @@
 import { useParams } from "react-router-dom";
 import Shimmer from "./Shimmer";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import { useState } from "react";
 
 const RestaurantMenu = () => {
   const { resId } = useParams<{ resId: string }>();
   const menuData = useRestaurantMenu(resId);
-
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
   if (!menuData) return <Shimmer />;
 
   const restaurantName = menuData?.data?.cards?.[0]?.card?.card?.text;
 
   const categories =
     menuData?.data?.cards?.[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
+
+  const typeCategories =
+    menuData?.data?.cards?.[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+      (c) =>
+        c?.card?.card?.["@type"] ===
+        "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+    );
 
   return (
     <div className="max-w-3xl mx-auto py-10">
@@ -20,35 +28,36 @@ const RestaurantMenu = () => {
       </h1>
 
       <div className="space-y-8">
-        {categories.map((category: any, index: number) => {
-          const card = category.card?.card;
-
-          if (card?.itemCards) {
-            return (
-              <div
-                key={index}
-                className="bg-white p-6 shadow rounded-xl space-y-4"
+        {typeCategories.map((category: any, index: number) => {
+          const card = category.card.card;
+          return (
+            <div key={index} className="border rounded-lg shadow-sm">
+              <button
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                className="w-full flex justify-between items-center p-4 bg-gray-100 hover:bg-gray-200 rounded-lg transition"
               >
-                <h2 className="text-2xl font-semibold text-gray-900">
-                  {card.title}
-                </h2>
-                <ul className="space-y-2">
-                  {card.itemCards.map((item: any) => (
-                    <li
+                <span className="font-semibold">{card.title}</span>
+                <span>{openIndex === index ? "▲" : "▼"}</span>
+              </button>
+              {openIndex === index && (
+                <div className="p-4 space-y-2">
+                  {card.itemCards?.map((item: any) => (
+                    <div
                       key={item.card.info.id}
-                      className="flex justify-between text-lg text-gray-700 border-b pb-2"
+                      className="flex justify-between border-b pb-2"
                     >
-                      {item.card.info.name} - ₹
-                      {item.card.info.price / 100 ||
-                        item.card.info.defaultPrice / 100}
-                    </li>
+                      <span>{item.card.info.name}</span>
+                      <span>
+                        ₹
+                        {(item.card.info.price || item.card.info.defaultPrice) /
+                          100}
+                      </span>
+                    </div>
                   ))}
-                </ul>
-              </div>
-            );
-          }
-
-          return null;
+                </div>
+              )}
+            </div>
+          );
         })}
       </div>
     </div>
