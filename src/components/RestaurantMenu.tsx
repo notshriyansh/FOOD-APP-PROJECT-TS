@@ -10,6 +10,7 @@ const RestaurantMenu = () => {
   const { resId } = useParams<{ resId: string }>();
   const menuData = useRestaurantMenu(resId);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [added, setAdded] = useState(false);
   const dispatch = useAppDispatch();
 
   if (!menuData) return <Shimmer />;
@@ -69,8 +70,10 @@ const RestaurantMenu = () => {
                         </p>
 
                         <button
-                          className="mt-2 bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600"
-                          onClick={() =>
+                          className={`mt-2 px-3 py-1 rounded-md text-white transition-all duration-300
+    ${added ? "bg-green-600" : "bg-red-500 hover:bg-red-600"}
+  `}
+                          onClick={() => {
                             dispatch(
                               addToCart({
                                 id: item.id,
@@ -78,10 +81,13 @@ const RestaurantMenu = () => {
                                 price: (item.price || item.defaultPrice) / 100,
                                 quantity: 1,
                               })
-                            )
-                          }
+                            );
+
+                            setAdded(true);
+                            setTimeout(() => setAdded(false), 1000); // Reset after 1 sec
+                          }}
                         >
-                          Add to Cart
+                          {added ? "✓ Added" : "Add to Cart"}
                         </button>
                       </div>
 

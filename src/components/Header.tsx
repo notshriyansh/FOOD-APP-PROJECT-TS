@@ -121,12 +121,16 @@ const Header: React.FC = () => {
             About
           </Link>
 
-          <li className="relative">
+          <Link
+            to="/cart"
+            onClick={() => setMenuOpen(false)}
+            className="relative"
+          >
             Cart
             <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
-              0
+              {cartCount}
             </span>
-          </li>
+          </Link>
 
           <button
             className="px-5 py-2 mt-4 rounded-xl bg-gradient-to-r from-red-500 to-red-600 text-white shadow hover:shadow-lg transition"
