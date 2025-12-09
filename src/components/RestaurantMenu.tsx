@@ -10,7 +10,8 @@ const RestaurantMenu = () => {
   const { resId } = useParams<{ resId: string }>();
   const menuData = useRestaurantMenu(resId);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const [added, setAdded] = useState(false);
+  const [addedItems, setAddedItems] = useState<{ [key: string]: boolean }>({});
+
   const dispatch = useAppDispatch();
 
   if (!menuData) return <Shimmer />;
@@ -54,6 +55,7 @@ const RestaurantMenu = () => {
               <div className="p-4 space-y-4">
                 {items.map((itemObj) => {
                   const item = itemObj.card.info;
+                  const isAdded = addedItems[item.id] || false;
 
                   return (
                     <div
@@ -71,8 +73,12 @@ const RestaurantMenu = () => {
 
                         <button
                           className={`mt-2 px-3 py-1 rounded-md text-white transition-all duration-300
-    ${added ? "bg-green-600" : "bg-red-500 hover:bg-red-600"}
-  `}
+                            ${
+                              isAdded
+                                ? "bg-green-600 scale-105"
+                                : "bg-red-500 hover:bg-red-600"
+                            }
+                          `}
                           onClick={() => {
                             dispatch(
                               addToCart({
@@ -83,11 +89,20 @@ const RestaurantMenu = () => {
                               })
                             );
 
-                            setAdded(true);
-                            setTimeout(() => setAdded(false), 1000); // Reset after 1 sec
+                            setAddedItems((prev) => ({
+                              ...prev,
+                              [item.id]: true,
+                            }));
+
+                            setTimeout(() => {
+                              setAddedItems((prev) => ({
+                                ...prev,
+                                [item.id]: false,
+                              }));
+                            }, 800);
                           }}
                         >
-                          {added ? "✓ Added" : "Add to Cart"}
+                          {isAdded ? "✓ Added" : "Add to Cart"}
                         </button>
                       </div>
 
