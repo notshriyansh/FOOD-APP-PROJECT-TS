@@ -3,11 +3,16 @@ import { Link } from "react-router-dom";
 import { LOGO_URL } from "../utils/constants";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import { Menu, X } from "lucide-react";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 const Header: React.FC = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login");
   const [menuOpen, setMenuOpen] = useState(false);
   const onlineStatus = useOnlineStatus();
+  const cartCount = useSelector(
+    (store: RootState) => store.cart.cartItems.length
+  );
 
   useEffect(() => {
     if (menuOpen) {
@@ -52,10 +57,12 @@ const Header: React.FC = () => {
             ))}
 
             <li className="hover:text-red-500 transition cursor-pointer relative">
-              Cart
-              <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
-                0
-              </span>
+              <Link to="/cart">
+                Cart
+                <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full">
+                  {cartCount}
+                </span>
+              </Link>
             </li>
 
             <button

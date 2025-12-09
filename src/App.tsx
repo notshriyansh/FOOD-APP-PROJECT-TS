@@ -1,52 +1,70 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import Contact from "./components/Contact";
 import About from "./components/About";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-
-const AppLayout: React.FC = () => {
-  return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans">
-      <Header />
-      <main className="max-w-7xl mx-auto px-4 py-6">
-        <Outlet />
-      </main>
-    </div>
-  );
-};
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Cart from "./components/Cart";
 
 const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <AppLayout />,
+    element: (
+      <>
+        <Header />
+        <Body />
+      </>
+    ),
     errorElement: <Error />,
-    children: [
-      {
-        path: "/",
-        element: <Body />,
-      },
-      {
-        path: "/about",
-        element: <About />,
-      },
-      {
-        path: "/contact",
-        element: <Contact />,
-      },
-      {
-        path: "restaurants/:resId",
-        element: <RestaurantMenu />,
-      },
-    ],
+  },
+
+  {
+    path: "/contact",
+    element: (
+      <>
+        <Header />
+        <Contact />
+      </>
+    ),
+  },
+  {
+    path: "/about",
+    element: (
+      <>
+        <Header />
+        <About />
+      </>
+    ),
+  },
+  {
+    path: "/restaurants/:resId",
+    element: (
+      <>
+        <Header />
+        <RestaurantMenu />
+      </>
+    ),
+  },
+  {
+    path: "/cart",
+    element: (
+      <>
+        <Header />
+        <Cart />
+      </>
+    ),
   },
 ]);
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById("root")!);
 
-root.render(<RouterProvider router={appRouter} />);
+root.render(
+  <Provider store={store}>
+    <RouterProvider router={appRouter} />
+  </Provider>
+);
