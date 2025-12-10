@@ -102,7 +102,7 @@ const RestaurantMenu = () => {
                             }, 800);
                           }}
                         >
-                          {isAdded ? "✓ Added" : "Add to Cart"}
+                          {isAdded ? "Added" : "Add to Cart"}
                         </button>
                       </div>
 
